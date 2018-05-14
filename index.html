@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width,initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
     <!-- <meta name="x5-fullscreen" content="true"> -->
     <!-- <meta name="full-screen" content="yes"> -->
-
     <title>Pocket Book</title>
     <link rel="stylesheet" href="lib/bootstrap-4.0.0-dist/css/bootstrap.min.css">
     <style>
-        .name {
-            text-align: center;
-            font-size: 66px;
-            text-shadow: 3px 5px grey, 1px 1px #333;
-        }
+    .name {
+        text-align: center;
+        font-size: 66px;
+        text-shadow: 3px 5px grey, 1px 1px #333;
+    }
 
+    .hide {
+        display: none;
+    }
     </style>
 </head>
 
@@ -25,66 +28,70 @@
     </div>
     <div class="container" align="center">
         <div class="row">
-            <div class="col-lg-2" style="background-color: #34495e;height: 550px">
+            <div class="col-lg-2" style="background-color: #34495e;height: 500px">
                 <div class="home">
                     <h6 style="color: #fff;text-align: left;padding-top: 10px">选择账本</h6>
                 </div>
                 <div class="nav">
-                    <select id="type" name="type" class="form-control">
+                    <select id="account" name="type" class="form-control">
                         <option value="default">默认账本</option>
                     </select>
                 </div>
             </div>
             <div class="col-lg-10">
-                <div class="breadcrumb">
-<!--                   <p>
+                <div class="breadcrumb" id="noExtension">
+                    请先安装浏览器插件钱包 <a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet">WebExtensionWallet</a> 以完成注册。
+                    <br>
+                    <!--                   <p>
                     <a href="#"><b>Home > </b></a>
                     <a href="#"><b>账本1</b></a>
                   </p> -->
                 </div>
                 <div class="row btns">
                     <div class="col-md-2">
-                        <button id="add" type="button" class="btn btn-block btn-md btn-primary addBtn" data-toggle="modal" data-target="#billAdd">新建</button>
+                        <button id="add" type="button" class="btn btn-block btn-md btn-primary addBtn" data-toggle="modal" data-target="#billAdd">记一笔</button>
                     </div>
-                    <div class="del col-md-2 hidden">
+                    <div class="del col-md-2 hide">
                         <a href="javascript:;" class="btn btn-block btn-md btn-danger delBtn">删除</a>
                     </div>
                 </div>
                 <div class="panel panel-default">
-                  <div class="panel-heading">账单列表
-                    <input type="text" class="input-md col-xs-3 pull-right" id="filter" placeholder="Search in table">
-                  </div>
-                  <table class="footable table" data-page-size="10" data-filter=#filter>
-                    <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>ID</th>
-                      <th>收支类型</th>
-                      <th>账单金额</th>
-                      <th>作者</th>
-                      <th>创建时间</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    
-                    </tbody>
-                  </table>
+                    <div class="panel-heading">账单列表
+                        <input type="text" class="input-md col-xs-3 pull-right" id="filter" placeholder="Search in table">
+                    </div>
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" data-filter=#filter>
+                        <thead>
+                            <tr>
+                                <th data-toggle="true">ID</th>
+                                <th>收支类型</th>
+                                <th>账单金额</th>
+                                <th>作者</th>
+                                <th>创建时间</th>
+                                <!-- <th>操作</th> -->
+                                <th data-hide="all">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-
             </div>
         </div>
-        <div class="text-center">
-            <strong>Copyright</strong> 基于星云区块链的记账本&copy; 2017-2018
+        <div id="footer">
+            <hr>
+            <center>
+                <div id="footer_middle"><a href='privacystatement.html'>条款声明</a> 使用
+                    <a href="https://nebulas.io/">星云链</a>驱动，<a href="https://incentive.nebulas.io/cn/signup.html?invite=yABFy">提交DAPP获得100NAS</a>
+                </div>
+            </center>
         </div>
     </div>
-    <div class="modal fade" id="billAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true" data-backdrop="false">
+    <div class="modal fade" id="billAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div>添加账单</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span>
+                    <div>记一笔</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -92,7 +99,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">收支类型</label>
                             <div class="col-sm-8">
-                                <select id="type" name="type" class="form-control">
+                                <select id="types" name="types" class="form-control">
                                     <option value="I">收入</option>
                                     <option value="O">支出</option>
                                 </select>
@@ -101,7 +108,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">金额</label>
                             <div class="col-sm-8">
-                                <input id="amount" type="number" name="amount" class="form-control required"/>
+                                <input id="amount" type="number" name="amount" class="form-control required" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -119,138 +126,119 @@
             </div>
         </div>
     </div>
-<script src=lib/jquery-3.3.1.min.js></script>
-<script src=lib/nebPay.js></script>
-<script src=lib/bootstrap-4.0.0-dist/js/bootstrap.min.js></script>
-<script src=lib/nebulas.js></script>
-<script src=lib/footable.all.min.js></script>
-<script>
-
+    <script src=lib/jquery-3.3.1.min.js></script>
+    <script src=lib/nebPay.js></script>
+    <script src=lib/bootstrap-4.0.0-dist/js/bootstrap.min.js></script>
+    <script src=lib/nebulas.js></script>
+    <script src=lib/footable.all.min.js></script>
+    <script>
     "use strict";
+    //to check if the extension is installed
+    //if the extension is installed, var "webExtensionWallet" will be injected in to web page
+    if (typeof(webExtensionWallet) === "undefined") {
+        //alert ("Extension wallet is not installed, please install it first.")
 
-    var dappAddress = "n1UpSJ3r2m1ea6n5UhvbCeRmP215rN71xMD";
+    } else {
+        $("#noExtension").hide();
+    }
 
+    var dappAddress = "n1z9WQDEi3RyFYJEj2zSd1asc5TSHNjJFDy";
     var nebulas = require("nebulas"),
-        Account = nebulas.Account,
-        neb = new nebulas.Neb();
-    neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"));
+        Account = nebulas.Account;
 
-    $(".addBtn").on("click", function() {
-        var dialog = $("#billAdd");
-        dialog.modal('show');
-    });
+    var NebPay = require("nebpay"); //https://github.com/nebulasio/nebPay
+    var nebPay = new NebPay();
+    var serialNumber; //交易序列号
+    var intervalQuery; //定时查询交易结果
 
-    // 搜索功能: 查找Super-Dictionary 中有没有该词条
-    $("#search").click(function(){
-        // $("#search_value").val() 搜索框内的值
-
-        var from = Account.NewAccount().getAddressString();
-
+    // 显示账单列表
+    function showTables(account) {
+        var to = dappAddress;
         var value = "0";
-        var nonce = "0"
-        var gas_price = "1000000"
-        var gas_limit = "2000000"
-        var callFunction = "get";
-        var callArgs = "[\"" + $("#search_value").val() + "\"]"; //in the form of ["args"]
-        var contract = {
-            "function": callFunction,
-            "args": callArgs
-        }
+        var callFunction = "getByAccount"
+        var callArgs = "[\"" + $("#account").val() + "\"]"
 
-        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
-            cbSearch(resp)
-        }).catch(function (err) {
-            //cbSearch(err)
-            console.log("error:" + err.message)
-        })
-
-    })
-
+        nebPay.simulateCall(to, value, callFunction, callArgs, { //使用nebpay的simulateCall接口去执行get查询, 模拟执行.不发送交易,不上链
+            listener: cbSearch //指定回调函数
+        });
+    }
     //return of search,
     function cbSearch(resp) {
-        var result = resp.result    ////resp is an object, resp.result is a JSON string
+        var result = resp.result ////resp is an object, resp.result is a JSON string
         console.log("return of rpc call: " + JSON.stringify(result))
 
-        if (result === 'null'){
-            $(".add_banner").addClass("hide");
-            $(".result_success").addClass("hide");
-
-            $("#result_faile_add").text($("#search_value").val())
-
-            $(".result_faile").removeClass("hide");
-        } else{
+        if (typeof(result) === "undefined") {
+            alert(resp);
+        } else if (result === 'null' || result === '"[]"') {
+            alert("所选账本结果为空");
+        } else {
             //if result is not null, then it should be "return value" or "error message"
-            try{
-                result = JSON.parse(result)
-            }catch (err){
+            try {
+                result = JSON.parse(result);
+                $('.footable tbody').empty();
+                var _tbody = "";
+                for (var i = 0; i < result.length; i++) {
+                    _tbody += "<tr>";
+                    _tbody += "<td>" + result[i].key + "</td>";
+                    _tbody += "<td>" + result[i].types == 'I' ? '收入' : '支出' + "</td>";
+                    _tbody += "<td>" + result[i].amount + "</td>";
+                    _tbody += "<td>" + result[i].author + "</td>";
+                    _tbody += "<td>" + result[i].create + "</td>";
+                    // _tbody += "<td>" + "<a onclick=\"delete('" + result[i].key + "')\"><i class=\"fa fa-trash text-danger\"> 删除</i></a>" + "</td>";
+                    _tbody += "<td>" + result[i].remarks + "</td>";
+                    _tbody += "</tr>";
+                }
+                $('.footable tbody').append(_tbody);
+            } catch (err) {
                 //result is the error message
-            }
-
-            if (!!result.key){      //"return value"
-                $(".add_banner").addClass("hide");
-                $(".result_faile").addClass("hide");
-
-                $("#search_banner").text($("#search_value").val())
-                $("#search_result").text(result.value)
-                $("#search_result_author").text(result.author)
-
-                $(".result_success").removeClass("hide");
-            } else {        //"error message"
-                $(".add_banner").addClass("hide");
-                $(".result_faile").addClass("hide");
-
-                $("#search_banner").text($("#search_value").val())
-                $("#search_result").text(result)
-                $("#search_result_author").text("")
-
-                $(".result_success").removeClass("hide");
+                alert(err);
             }
 
         }
 
     }
 
-    // 添加信息功能: 像super-dictionary 中添加词条
-    $("#add").click(function() {
-        $(".result_faile").addClass("hide");
-        $(".add_banner").removeClass("hide");
+    // 记一笔
+    $(".addBtn").on("click", function() {
+        var dialog = $("#billAdd");
+        dialog.modal('show');
+    });
 
-        $("#add_value").val("")
-    })
-
-    var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
-    var nebPay = new NebPay();
-    var serialNumber
-
-    $("#push").click(function() {
+    $("#addBtn").click(function() {
 
         var to = dappAddress;
         var value = "0";
-        var callFunction = "save"
-        var callArgs = "[\"" + $("#search_value").val() + "\",\"" + $("#add_value").val() + "\"]"
+        var callFunction = "save";
+        // args
+        var key = new Date().getTime();
+        var account = $('#account').val();
+        var types = $('#types').val();
+        var remarks = $('#remarks').val();
+        var amount = $('#amount').val();
+        // save(key, account, types, remarks, amount)
+        var callArgs = "[\"" + key + "\",\"" + account + "\",\"" + types + "\",\"" + remarks + "\",\"" + amount + "\"]"
 
-        serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
-            listener: cbPush        //设置listener, 处理交易返回信息
+        serialNumber = nebPay.call(to, value, callFunction, callArgs, { //使用nebpay的call接口去调用合约,
+            listener: cbPush //设置listener, 处理交易返回信息
         });
 
-        intervalQuery = setInterval(function () {
+        intervalQuery = setInterval(function() {
             funcIntervalQuery();
         }, 5000);
     });
 
-    var intervalQuery
 
     function funcIntervalQuery() {
-        nebPay.queryPayInfo(serialNumber)   //search transaction result from server (result upload to server by app)
-            .then(function (resp) {
-                console.log("tx result: " + resp)   //resp is a JSON string
+        nebPay.queryPayInfo(serialNumber) //search transaction result from server (result upload to server by app)
+            .then(function(resp) {
+                console.log("tx result: " + resp) //resp is a JSON string
                 var respObject = JSON.parse(resp)
-                if(respObject.code === 0){
-                    alert(`set ${$("#search_value").val()} succeed!`)
+                if (respObject.code === 0) {
+                    alert(`add to account ${$("#account").val()} succeed!`)
                     clearInterval(intervalQuery)
                 }
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 console.log(err);
             });
     }
@@ -258,8 +246,10 @@
     function cbPush(resp) {
         console.log("response of push: " + JSON.stringify(resp))
     }
-    $('.footable').footable();
-</script>
+    $(document).ready(function() {
+                $('.footable').footable();
+                showTables(); });
+    </script>
 </body>
 
 </html>

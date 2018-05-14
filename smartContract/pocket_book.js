@@ -6,16 +6,18 @@ var DictItem = function(text) {
 		this.key = obj.key;
         this.author = obj.author;
 		this.account = obj.account;
-		this.type = obj.type;
+		this.types = obj.types;
         this.remarks = obj.remarks;
         this.amount = obj.amount;
+        this.create = obj.create;
 	} else {
 	    this.key = "";
         this.author = "";
 	    this.account = "";
-	    this.type = "";
+	    this.types = "";
         this.remarks = "";
         this.amount = 0;
+        this.create = Date();
 	}
 };
 
@@ -36,6 +38,7 @@ var PocketBook = function () {
         }
    });
    LocalContractStorage.defineProperty(this, "size");
+};
 
 PocketBook.prototype = {
     init: function () {
@@ -43,7 +46,7 @@ PocketBook.prototype = {
         this.accountMap.set("default", "");
     },
 
-    save: function (key, account, type, remarks, amount) {
+    save: function (key, account, types, remarks, amount) {
 
         key = key.trim();
         account = account.trim();
@@ -71,16 +74,18 @@ PocketBook.prototype = {
         dictItem.author = from;
         dictItem.key = key;
         dictItem.account = account;
-        dictItem.type = type;
+        dictItem.types = types;
         dictItem.remarks = remarks;
         dictItem.amount = amount;
+        dictItem.create = Date();
 
         var accountData = this.accountMap.get(account);
         if (accountData == ""){
             this.accountMap.put(account,key);
         }
         else{
-            accountData += "," + key; 
+            accountData += "," + key;
+            this.accountMap.put(account,accountData);
         }
         this.dataMap.put(key, dictItem);
         this.size +=1;
@@ -104,6 +109,26 @@ PocketBook.prototype = {
             return this.accountMap
         }
         return this.accountMap.get(account);
+    },
+
+    getByAccount: function (account) {
+        account = account.trim();
+        if ( account === "" ) {
+            throw new Error("empty account")
+        }
+        var keys = this.accountMap.get(account);
+        if (keys == ""){
+            return "[]";
+        }else{
+            var keyArr = keys.split(",");
+            var dataStr = "[";
+            for (var i=0;i<keyArr.length;i++)
+            {
+                var item = this.dataMap.get(keyArr[i]);
+                dataStr += item.toString() + ",";
+            }
+            return dataStr.substring(0,dataStr.length - 1) + "]";
+        }
     }
 
 };
