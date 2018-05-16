@@ -50,12 +50,12 @@ PocketBook.prototype = {
 
         key = key.trim();
         account = account.trim();
-        type = type.trim();
+        types = types.trim();
         if (key === "" || account === ""){
             throw new Error("empty key / account");
         }
-        if (type != "I" && type != "O"){
-            throw new Error("invalid type");
+        if (types != "I" && types != "O"){
+            throw new Error("invalid types");
         }
         if (remarks.length > 64 || key.length > 64){
             throw new Error("key / remarks exceed limit length")

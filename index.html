@@ -19,6 +19,9 @@
     .hide {
         display: none;
     }
+    .card-header {
+        margin-left: 2px;
+    }
     </style>
 </head>
 
@@ -26,7 +29,7 @@
     <div class="logo">
         <div class="name">POCKET BOOK</div>
     </div>
-    <div class="container" align="center">
+    <div class="container">
         <div class="row">
             <div class="col-lg-2" style="background-color: #34495e;height: 500px">
                 <div class="home">
@@ -55,16 +58,19 @@
                         <a href="javascript:;" class="btn btn-block btn-md btn-danger delBtn">删除</a>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">账单列表
-                        <input type="text" class="input-md col-xs-3 pull-right" id="filter" placeholder="Search in table">
+                <div class="card border-primary">
+                    <div class="card-header row col-md-12">
+                        <h5 class="col-md-2 offset-md-5">账单列表</h5>
+                        <div class="col-md-3 offset-md-2">
+                            <input type="text" class="form-control" id="filter" placeholder="Search in table">
+                        </div>
                     </div>
                     <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" data-filter=#filter>
                         <thead>
                             <tr>
                                 <th data-toggle="true">ID</th>
                                 <th>收支类型</th>
-                                <th>账单金额</th>
+                                <th>账单金额(元)</th>
                                 <th>作者</th>
                                 <th>创建时间</th>
                                 <!-- <th>操作</th> -->
@@ -80,7 +86,7 @@
         <div id="footer">
             <hr>
             <center>
-                <div id="footer_middle"><a href='privacystatement.html'>条款声明</a> 使用
+                <div id="footer_middle"> 使用
                     <a href="https://nebulas.io/">星云链</a>驱动，<a href="https://incentive.nebulas.io/cn/signup.html?invite=yABFy">提交DAPP获得100NAS</a>
                 </div>
             </center>
@@ -106,7 +112,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">金额</label>
+                            <label class="col-sm-3 col-form-label">金额(单位：元)</label>
                             <div class="col-sm-8">
                                 <input id="amount" type="number" name="amount" class="form-control required" />
                             </div>
@@ -142,7 +148,7 @@
         $("#noExtension").hide();
     }
 
-    var dappAddress = "n1z9WQDEi3RyFYJEj2zSd1asc5TSHNjJFDy";
+    var dappAddress = "n1hG7xQPGTHvQsD8ynEjW4rxYpXU2uE5B7T";
     var nebulas = require("nebulas"),
         Account = nebulas.Account;
 
@@ -175,12 +181,13 @@
             //if result is not null, then it should be "return value" or "error message"
             try {
                 result = JSON.parse(result);
+                result = JSON.parse(result);
                 $('.footable tbody').empty();
                 var _tbody = "";
                 for (var i = 0; i < result.length; i++) {
                     _tbody += "<tr>";
                     _tbody += "<td>" + result[i].key + "</td>";
-                    _tbody += "<td>" + result[i].types == 'I' ? '收入' : '支出' + "</td>";
+                    _tbody += "<td>" + (result[i].types == 'I' ? '收入' : '支出') + "</td>";
                     _tbody += "<td>" + result[i].amount + "</td>";
                     _tbody += "<td>" + result[i].author + "</td>";
                     _tbody += "<td>" + result[i].create + "</td>";
@@ -189,6 +196,7 @@
                     _tbody += "</tr>";
                 }
                 $('.footable tbody').append(_tbody);
+                $('.footable').footable();
             } catch (err) {
                 //result is the error message
                 alert(err);
@@ -247,8 +255,8 @@
         console.log("response of push: " + JSON.stringify(resp))
     }
     $(document).ready(function() {
-                $('.footable').footable();
-                showTables(); });
+        showTables();
+    });
     </script>
 </body>
 
