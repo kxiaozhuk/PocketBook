@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
     <!-- <meta name="x5-fullscreen" content="true"> -->
     <!-- <meta name="full-screen" content="yes"> -->
-    <title>Pocket Book</title>
+    <title>Pocket Book-记账本</title>
     <link rel="stylesheet" href="lib/bootstrap-4.0.0-dist/css/bootstrap.min.css">
     <style>
     .name {
@@ -25,64 +25,61 @@
     }
     </style>
 </head>
-
-<body>
-    <div class="logo">
-        <div class="name">POCKET BOOK</div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2" style="background-color: #34495e;height: 500px">
-                <div class="home">
-                    <h6 style="color: #fff;text-align: left;padding-top: 10px">选择账本</h6>
-                </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
+    <a class="navbar-brand" href="#">POCKET BOOK</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
                 <div class="nav">
                     <select id="account" name="type" class="form-control">
-                        <option value="default">默认账本</option>
+                        <option value="default">公共账本</option>
                     </select>
                 </div>
-            </div>
-            <div class="col-lg-10">
-                <div class="breadcrumb" id="noExtension">
-                    请先安装浏览器插件钱包 <a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet">WebExtensionWallet</a> 以完成注册。
-                    <br>
-                    <!--                   <p>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<body>
+    <div class="container">
+        <div class="breadcrumb" id="noExtension">
+            请先安装浏览器插件钱包 <a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet">WebExtensionWallet</a> 以完成注册。
+            <br>
+            <!--                   <p>
                     <a href="#"><b>Home > </b></a>
                     <a href="#"><b>账本1</b></a>
                   </p> -->
-                </div>
-                <div class="row btns">
-                    <div class="col-md-2">
-                        <button id="add" type="button" class="btn btn-block btn-md btn-primary addBtn" data-toggle="modal" data-target="#billAdd">记一笔</button>
-                    </div>
-                    <div class="del col-md-2 hide">
-                        <a href="javascript:;" class="btn btn-block btn-md btn-danger delBtn">删除</a>
-                    </div>
-                </div>
-                <div class="card border-primary">
-                    <div class="card-header row col-md-12">
-                        <h5 class="col-md-2 offset-md-5">账单列表</h5>
-                        <div class="col-md-3 offset-md-2">
-                            <input type="text" class="form-control" id="filter" placeholder="Search in table">
-                        </div>
-                    </div>
-                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" data-filter=#filter>
-                        <thead>
-                            <tr>
-                                <th data-toggle="true">ID</th>
-                                <th>收支类型</th>
-                                <th>账单金额(元)</th>
-                                <th>作者</th>
-                                <th>创建时间</th>
-                                <!-- <th>操作</th> -->
-                                <th data-hide="all">备注</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+        </div>
+        <div class="row btns">
+            <div class="col-md-2">
+                <button id="add" type="button" class="btn btn-block btn-md btn-primary addBtn" data-toggle="modal" data-target="#billAdd">记一笔</button>
+            </div>
+            <div class="del col-md-2 hide">
+                <a href="javascript:;" class="btn btn-block btn-md btn-danger delBtn">删除</a>
+            </div>
+        </div>
+        <div class="card border-primary">
+            <div class="card-header row col-md-12">
+                <h5 class="col-md-2 offset-md-5">账单列表</h5>
+                <div class="col-md-3 offset-md-2">
+                    <input type="text" class="form-control" id="filter" placeholder="Search in table">
                 </div>
             </div>
+            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" data-filter=#filter>
+                <thead>
+                    <tr>
+                        <th data-toggle="true">ID</th>
+                        <th>收支类型</th>
+                        <th>账单金额(元)</th>
+                        <th>作者</th>
+                        <th>创建时间</th>
+                        <!-- <th>操作</th> -->
+                        <th data-hide="all">备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
         <div id="footer">
             <hr>
@@ -104,7 +101,7 @@
                 <div class="modal-body">
                     <form id="newForm" class="form-horizontal" autocomplete="off">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">收支类型</label>
+                            <label class="col-sm-4 col-form-label">收支类型</label>
                             <div class="col-sm-8">
                                 <select id="types" name="types" class="form-control">
                                     <option value="I">收入</option>
@@ -113,13 +110,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">金额(单位：元)</label>
+                            <label class="col-sm-4 col-form-label">金额(单位：元)</label>
                             <div class="col-sm-8">
                                 <input id="amount" type="number" name="amount" class="form-control required" />
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">备注</label>
+                            <label class="col-sm-4 col-form-label">备注</label>
                             <div class="col-sm-8">
                                 <textarea id="remarks" type="text" name="remarks" class="form-control"></textarea>
                             </div>
@@ -236,7 +233,6 @@
         }, 5000);
     });
 
-
     function funcIntervalQuery() {
         nebPay.queryPayInfo(serialNumber) //search transaction result from server (result upload to server by app)
             .then(function(resp) {
@@ -255,6 +251,11 @@
     function cbPush(resp) {
         console.log("response of push: " + JSON.stringify(resp))
     }
+
+    $(".newBtn").on("click", function() {
+        var dialog = $("#accountNew");
+        dialog.modal('show');
+    });
 
     function addWallectInfo() {
         window.postMessage({
