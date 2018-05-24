@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
     <!-- <meta name="x5-fullscreen" content="true"> -->
     <!-- <meta name="full-screen" content="yes"> -->
-    <title>Pocket Book-记账本</title>
+    <title>Pocket Book</title>
     <link rel="stylesheet" href="lib/bootstrap-4.0.0-dist/css/bootstrap.min.css">
     <style>
     .name {
@@ -23,99 +23,68 @@
     .card-header {
         margin-left: 2px;
     }
-
-    .card {
-        margin-top: 10px;
-    }
-
-/*    .footer {
-        left: 0px;
-        position: fixed;
-        width: 100%;
-        height: 60px;
-        text-align: center;
-        bottom: 0px;
-    }*/
     </style>
 </head>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
-    <a class="navbar-brand" href="#">POCKET BOOK</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
+
+<body>
+    <div class="logo">
+        <div class="name">POCKET BOOK</div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2" style="background-color: #34495e;height: 500px">
+                <div class="home">
+                    <h6 style="color: #fff;text-align: left;padding-top: 10px">选择账本</h6>
+                </div>
                 <div class="nav">
                     <select id="account" name="type" class="form-control">
-                        <option value="default">公共账本</option>
+                        <option value="default">默认账本</option>
                     </select>
                 </div>
-            </li>
-        </ul>
-        <p class="mr-sm-1" style="color: #ffff;">基于星云链的记账本</p>
-    </div>
-</nav>
-
-<body background="bg.png" style="background-color: #5bc0de">
-    <div class="container">
-        <div class="breadcrumb" id="noExtension">
-            请先安装浏览器插件钱包 <a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet">WebExtensionWallet</a> 以完成注册。
-            <br>
-            <!--                   <p>
+            </div>
+            <div class="col-lg-10">
+                <div class="breadcrumb" id="noExtension">
+                    请先安装浏览器插件钱包 <a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet">WebExtensionWallet</a> 以完成注册。
+                    <br>
+                    <!--                   <p>
                     <a href="#"><b>Home > </b></a>
                     <a href="#"><b>账本1</b></a>
                   </p> -->
-        </div>
-        <div class="row" style="background-color: #ffc107;margin-top:10px;">
-            <form class="form-inline">
-                <div class="form-group col-md-2">
-                    <input type="text" readonly class="form-control-plaintext" id="total" value="账本总计">
                 </div>
-                <div class="form-group col-md-3">
-                    <label class="col-md-5 col-form-label">总收入</label>
-                    <input type="text" class="form-control col-md-7" id="income" readonly>
+                <div class="row btns">
+                    <div class="col-md-2">
+                        <button id="add" type="button" class="btn btn-block btn-md btn-primary addBtn" data-toggle="modal" data-target="#billAdd">记一笔</button>
+                    </div>
+                    <div class="del col-md-2 hide">
+                        <a href="javascript:;" class="btn btn-block btn-md btn-danger delBtn">删除</a>
+                    </div>
                 </div>
-                <div class="form-group col-md-3">
-                    <label class="col-md-5 col-form-label">总支出</label>
-                    <input type="text" class="form-control col-md-7" id="outcome" readonly>
-                </div>
-                <div class="form-group col-md-3">
-                    <label class="col-md-5 col-form-label">总盈亏</label>
-                    <input type="text" class="form-control col-md-7" id="benefit" readonly>
-                </div>
-            </form>
-        </div>
-        <div id="container" style="height: 400px;background-color: #ffff;margin-top:10px; margin-bottom: 10px;"></div>
-        <div class="row btns">
-            <div class="col-md-3">
-                <button id="add" type="button" class="btn btn-block btn-md btn-warning addBtn" data-toggle="modal" data-target="#billAdd">记一笔</button>
-            </div>
-            <div class="del col-md-2 hide">
-                <a href="javascript:;" class="btn btn-block btn-md btn-danger delBtn">删除</a>
-            </div>
-        </div>
-        <div class="card border-primary">
-            <div class="card-header row col-md-12">
-                <h5 class="col-md-2 offset-md-5">账单列表</h5>
-                <div class="col-md-3 offset-md-2">
-                    <input type="text" class="form-control" id="filter" placeholder="Search in table">
+                <div class="card border-primary">
+                    <div class="card-header row col-md-12">
+                        <h5 class="col-md-2 offset-md-5">账单列表</h5>
+                        <div class="col-md-3 offset-md-2">
+                            <input type="text" class="form-control" id="filter" placeholder="Search in table">
+                        </div>
+                    </div>
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" data-filter=#filter>
+                        <thead>
+                            <tr>
+                                <th data-toggle="true">ID</th>
+                                <th>收支类型</th>
+                                <th>账单金额(元)</th>
+                                <th>作者</th>
+                                <th>创建时间</th>
+                                <!-- <th>操作</th> -->
+                                <th data-hide="all">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" data-filter=#filter>
-                <thead>
-                    <tr>
-                        <th data-toggle="true">ID</th>
-                        <th>收支类型</th>
-                        <th>账单金额(元)</th>
-                        <th>作者</th>
-                        <th>创建时间</th>
-                        <!-- <th>操作</th> -->
-                        <th data-hide="all">备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
         </div>
-        <div id="footer" class="footer">
+        <div id="footer">
             <hr>
             <center>
                 <div id="footer_middle"> 使用
@@ -135,7 +104,7 @@
                 <div class="modal-body">
                     <form id="newForm" class="form-horizontal" autocomplete="off">
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">收支类型</label>
+                            <label class="col-sm-3 col-form-label">收支类型</label>
                             <div class="col-sm-8">
                                 <select id="types" name="types" class="form-control">
                                     <option value="I">收入</option>
@@ -144,13 +113,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">金额(单位：元)</label>
+                            <label class="col-sm-3 col-form-label">金额(单位：元)</label>
                             <div class="col-sm-8">
                                 <input id="amount" type="number" name="amount" class="form-control required" />
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">备注</label>
+                            <label class="col-sm-3 col-form-label">备注</label>
                             <div class="col-sm-8">
                                 <textarea id="remarks" type="text" name="remarks" class="form-control"></textarea>
                             </div>
@@ -159,7 +128,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                    <button id="addBtn" type="button" class="btn btn-default" data-dismiss="modal">创建</button>
+                    <button id="addBtn" type="button" class="btn btn-default">创建</button>
                 </div>
             </div>
         </div>
@@ -169,7 +138,6 @@
     <script src=lib/bootstrap-4.0.0-dist/js/bootstrap.min.js></script>
     <script src=lib/nebulas.js></script>
     <script src=lib/footable.all.min.js></script>
-    <script src=lib/echarts.common.min.js></script>
     <script>
     "use strict";
     //to check if the extension is installed
@@ -205,10 +173,7 @@
     function cbSearch(resp) {
         var result = resp.result ////resp is an object, resp.result is a JSON string
         console.log("return of rpc call: " + JSON.stringify(result))
-        var income = 0.0;
-        var outcome = 0.0;
-        myChart.clear();
-        
+
         if (typeof(result) === "undefined") {
             alert(resp);
         } else if (result === 'null' || result === '"[]"') {
@@ -219,59 +184,26 @@
                 $('.footable tbody').empty();
                 result = JSON.parse(result);
                 result = JSON.parse(result);
-                var xAxis = new Set();
                 var _tbody = "";
                 for (var i = 0; i < result.length; i++) {
                     _tbody += "<tr>";
                     _tbody += "<td>" + result[i].key + "</td>";
-                    if (result[i].types == 'I') {
-                        _tbody += "<td>收入</td>";
-                        income += parseFloat(result[i].amount);
-                    } else {
-                        _tbody += "<td>支出</td>";
-                        outcome += parseFloat(result[i].amount);
-                    }
-
+                    _tbody += "<td>" + (result[i].types == 'I' ? '收入' : '支出') + "</td>";
                     _tbody += "<td>" + result[i].amount + "</td>";
                     _tbody += "<td>" + result[i].author + "</td>";
                     _tbody += "<td>" + result[i].create + "</td>";
-                    xAxis.add(result[i].create.substring(0,10));
                     // _tbody += "<td>" + "<a onclick=\"delete('" + result[i].key + "')\"><i class=\"fa fa-trash text-danger\"> 删除</i></a>" + "</td>";
                     _tbody += "<td>" + result[i].remarks + "</td>";
                     _tbody += "</tr>";
                 }
                 $('.footable tbody').append(_tbody);
                 $('.footable').footable();
-
-                //生成图形数据
-                var yAxis1 = new Array();
-                var yAxis2 = new Array();
-                var j = 0;
-                for (var x of xAxis){
-                    yAxis1[j]=0;
-                    yAxis2[j]=0;
-                    for (var i = 0; i < result.length; i++) {
-                        var date = result[i].create.substring(0,10);
-                        if (result[i].types == 'I' && date == x){
-                            yAxis1[j] = parseFloat(result[i].amount);
-                        }
-                        if (result[i].types == 'O' && date == x){
-                            yAxis2[j] = parseFloat(result[i].amount);
-                        }
-                    }
-                    j += 1;
-                }
-                showChart(xAxis,yAxis1,yAxis2);
             } catch (err) {
                 //result is the error message
                 console.log(err);
             }
 
         }
-        $('#income').val("¥" + income);
-        $('#outcome').val("¥" + outcome);
-        $('#benefit').val("¥" + (income - outcome));
-
 
     }
 
@@ -304,6 +236,7 @@
         }, 5000);
     });
 
+
     function funcIntervalQuery() {
         nebPay.queryPayInfo(serialNumber) //search transaction result from server (result upload to server by app)
             .then(function(resp) {
@@ -323,11 +256,6 @@
         console.log("response of push: " + JSON.stringify(resp))
     }
 
-    $(".newBtn").on("click", function() {
-        var dialog = $("#accountNew");
-        dialog.modal('show');
-    });
-
     function addWallectInfo() {
         window.postMessage({
             "target": "contentscript",
@@ -339,7 +267,7 @@
             if (e.data && e.data.data) {
                 if (e.data.data.account) {
                     var address = e.data.data.account;
-                    $('#account').append('<option value="' + address + '">私人账本</option>');
+                    $('#account').append('<option value="'+ address + '">私人账本</option>');
                 }
             }
         });
@@ -353,59 +281,6 @@
         showTables();
         addWallectInfo();
     });
-    var dom = document.getElementById("container");
-    var myChart = echarts.init(dom);
-
-    function showChart(xAxis, yAxis1, yAxis2) {
-        var app = {};
-        var option = null;
-        option = {
-            title: {
-                text: '收入支出趋势图'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: ['收入', '支出']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: xAxis
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                    name: '收入',
-                    type: 'line',
-                    stack: '金额',
-                    data: yAxis1
-                },
-                {
-                    name: '支出',
-                    type: 'line',
-                    stack: '金额',
-                    data: yAxis2
-                }
-            ]
-        };;
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
-        }
-    }
     </script>
 </body>
 
